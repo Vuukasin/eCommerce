@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="container my-5 product-detail">
+    <div class="row no-gutters">
+        <div class="col-xl-8">
+            <img class="detail-image" src="{{ item.detail_image.url }}" alt="">
+        </div>
+        <div class="col-xl-4 mt-3">
+            <h2 class="green">{{ item.title }}</h2>
+            <h3 class="">{{ item.summary }}</h3>
+            <div class="small-image-container">
+                <img class="small-image" src="{{ item.image.url }}" alt="">
+            </div>
+            <span class="detail-price">US${{ item.price }}</span>
+            <div class="detail-description">
+                {% for tag in item.description_list %}
+                {% if tag %}
+                <li>{{ tag }}</li>
+                {% endif %}
+                {% endfor %}
+            </div>
+            <a href="{{ item.get_add_to_cart_url }}">
+                <button class="add-to-cart-btn">add to cart</button>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

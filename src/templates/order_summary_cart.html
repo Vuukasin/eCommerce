@@ -1,0 +1,28 @@
+{% load static %}
+{% load cart_template_tags %}
+<div class="order-summary-cart">
+    <h3 class="order-summary-title">Your Cart</h3>
+    <p class="order-summary-subtitle">{{ request.user|cart_item_count }} item{{ request.user|cart_item_count|pluralize }}</p>
+    <div class="order-summary-body">
+        <div class="row my-2">
+            <div class="col-6 order-summary-text">Subtotal</div>
+            <div class="col-6 text-end order-summary-text">US${{ order.get_total }}</div>
+            <div class="col-12 order-summary-text">(Excludes local taxes)</div>
+        </div>
+        <hr class="text-secondary">
+        <div class="row my-4">
+            <div class="col-6 order-summary-text">Local Taxes</div>
+            <div class="col-6 order-summary-text text-end">US$7</div>
+        </div>
+        <hr class="text-secondary">
+        <div class="row my-4">
+            <div class="col-6 order-summary-text">Shipping</div>
+            <div class="col-6 order-summary-text text-end">Free</div>
+        </div>
+    </div>
+    <hr class="text-secondary">
+    <div class="row mt-5">
+        <div class="col-6 order-summary-title">Total</div>
+        <div class="col-6 text-end order-summary-title">US${{ order.get_total }}</div>
+    </div>
+</div>

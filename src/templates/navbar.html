@@ -1,0 +1,150 @@
+{% load static %}
+{% load cart_template_tags %}
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg px-3">
+    <!-- Container wrapper -->
+    <div class="container-fluid">
+      <!-- Toggle button -->
+      <button
+        class="navbar-toggler my-2"
+        type="button"
+        data-mdb-toggle="collapse"
+        data-mdb-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+      <i class="fa fa-solid fa-bars"></i>
+      </button>
+      <a class="navbar-brand mt-lg-0" href="{% url 'core:home' %}">
+        <img
+          src="{% static 'images/razer-logo.svg' %}"
+          height="40"
+          alt="Razer Logo"
+          loading="lazy"
+        />
+      </a>
+      <!-- Collapsible wrapper -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <!-- Navbar brand -->
+        <!-- Left links -->
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Laptops</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Components</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Mice</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Keyboards</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Audio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Streaming</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Chairs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Console</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Mobile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Gear</a>
+          </li>
+
+
+        </ul>
+        <!-- Left links -->
+      </div>
+      <!-- Collapsible wrapper -->
+      <!-- TEST TEST TEST TEST -->
+
+
+      <div class="dropdown dropstart">
+          <a href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <img id="cart-icon" src="{% static 'images/cart.svg' %}" alt="">
+            <p id="cart-total">{{ request.user|cart_item_count }}</p>
+          </a>
+          <div class="dropdown-menu">
+            <div class="dropdown-container text-center">
+              <div class="dropdown-container-top my-3">
+                <a class="my-1" href="{% url 'core:checkout' %}">
+                  <button class="razer-btn">checkout</button>
+                </a>
+              </div>
+              <ul class="text-start">
+                <li>
+                  <a href="{% url 'core:cart' %}">
+                    <img src="{% static 'images/cart.svg' %}" alt="" height="26">
+                    Cart({{ request.user|cart_item_count }})
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'core:orders' %}">
+                    <img src="{% static 'images/orders.svg' %}" alt="" height="26">
+                    Orders
+                  </a>
+                </li>
+                {% if request.user.is_authenticated %}
+                <li>
+                  <a href="{% url 'account_logout' %}">
+                    <img src="{% static 'images/profile.svg' %}" alt="" height="26">
+                    Account
+                  </a>
+                </li>
+                <li>
+                  <a href="">
+                    <img src="{% static 'images/logout.svg' %}" alt="" height="26">
+                    Logout
+                  </a>
+                </li>
+                {% else %}
+                <li>
+                  <a href="{% url 'account_login' %}">
+                    <img src="{% static 'images/logout.svg' %}" alt="" height="26">
+                    Login
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'account_signup' %}">
+                    <img src="{% static 'images/logout.svg' %}" alt="" height="26">
+                    Signup
+                  </a>
+                </li>
+                {% endif %}
+              </ul>
+            </div>
+          </div>
+      </div>
+      
+
+
+      <!-- TEST TEST TEST TEST -->
+      <!-- Right elements -->
+      <!-- {% if request.user.is_authenticated %}
+      <div class="d-flex align-items-center">
+        <a class="text-reset me-3 shopping-cart" href="{% url 'core:cart' %}">
+          <img src="{% static 'images/cart.svg' %}" alt="" height="23">
+          <p id="cart-total" class="mb-0">{{ request.user|cart_item_count }}</p>
+        </a>
+      </div>
+      {% else %}
+      <div class="d-flex align-items-center">
+        <a href="{% url 'account_login' %}">
+          <button class="razer-btn">login</button>
+        </a>
+      </div>
+      {% endif %} -->
+      <!-- Right elements -->
+    </div>
+    <!-- Container wrapper -->
+  </nav>
+  <!-- Navbar -->

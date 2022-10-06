@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+
+    <h2 class="orders-header">Order History</h2>
+    <table>
+        <thead>
+          <tr>
+            <th>Order Code</th>
+            <th>Order Date</th>
+            <th>Creation Date</th>
+            <th>Status</th>
+            <th>Order Amount</th>
+          </tr>
+         </thead>
+         <tbody>
+            {% for order in orders %}
+            <tr>
+                <td class="green">{{ order.ref_code }}</td>
+                <td>{{ order.ordered_date|date:"d/m/Y" }}</td>
+                <td>{{ order.created|date:"d/m/Y" }}</td>
+                <td>{{ order.get_status_display }}</td>
+                <td>US${{ order.get_total }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+      
+
+</div>
+{% endblock %}

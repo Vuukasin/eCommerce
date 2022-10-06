@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<div class="container product-added">
+
+    <div class="row my-5 align-items-center">
+        <div class="col-lg-2 col-0">
+            <img class="product-added-image" src="{{ item.image.url }}" alt="">
+        </div>
+        <div class="col-lg-8">
+            <h3>{{ item.title }} has been added</h3>
+            {% for tag in item.description_list %}
+            <div class="product-added-description">
+                {% if tag %}
+                <li>{{ tag }}</li>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        <div class="col-lg-2">
+            <a href="{% url 'core:cart' %}">
+                <button class="razer-btn">view cart</button>
+            </a>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

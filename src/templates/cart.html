@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% if order.items.count > 0 %}
+<div class="cart-header py-4">
+    <div class="container">
+        <div class="row no-gutters my-auto align-items-center">
+            <div class="col-6 cart-header-left">
+                <span>CART</span>
+            </div>
+            <div class="col-6 cart-header-right">
+                <span>US${{ order.get_total }}</span>
+                <a href="{% url 'core:checkout' %}"><button class="razer-btn">checkout</button></a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row align-items-center">
+        <div class="col">
+            <div class="cart-items-list">
+                <div class="cart-item">
+                    {% for orderitem in order.items.all %}
+                        <div class="row mt-5">
+                            <div class="col-8 col-md-3 col-lg-2 mx-auto">
+                                <a href="{{ orderitem.item.get_absolute_url }}">
+                                    <img class="cart-item-image" src="{{ orderitem.item.image.url }}" alt="">
+                                </a>
+                            </div>
+                            <div class="col-12 col-md-9 col-lg-10">
+                                <div class="cart-info-container row mt-2">
+                                    <div class="col-12 col-md-9 col-lg-7">
+                                        <!-- description -->
+                                        <h4 class="sub-header-text pt-2">{{ orderitem.item.title }}</h4>
+                                        <ul>
+                                            {% for tag in orderitem.item.description_list %}
+                                                <li class="cart-description">{{ tag }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                    <div class="row total-row col-12 col-lg-5 px-1">
+                                        <div class="col-3 col-lg-5 px-4">
+                                            <!-- quantity -->
+                                            <p class="mb-0 g888">Quantity:</p>
+                                            <div class="cart-quantity">
+                                                <a href="{% url 'core:decrease-quantity' orderitem.item.slug %}">
+                                                    <img class="chg-quantity" src="{% static 'images/qty-1.svg' %}" alt="" height="15" width="15">
+                                                </a>
+                                                <p class="mb-0 mx-3">{{ orderitem.quantity }}</p>
+                                                <a href="{% url 'core:increase-quantity' orderitem.item.slug %}">
+                                                    <img class="chg-quantity" src="{% static 'images/qty+1.svg' %}" alt="" height="15" width="15">
+                                                </a>
+                                            </div>
+                                            <a href="{{ orderitem.item.get_remove_from_cart_url }}">
+                                                <p class="text-muted mt-2 remove-link g888">Remove</p>
+                                            </a>
+                                        </div>
+                                        <div class="flex-column col-7 col-md-4 col-lg-7 px-0">
+                                            <!-- price -->
+                                            <p class="cart-item-total text-end mb-0">US${{ orderitem.get_total_item_price }}</p>
+                                            <p class="text-end without-discount"><del>US${{ orderitem.price_with_out_discount }}</del> {{ orderitem.item.discount_percent|floatformat }}% off</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="container text-center">
+    <div class="empty-cart mt-5">
+        <h4>Your cart if empty</h4>
+        <p class="g888">Have a look at our latest products and start shopping.</p>
+        <a href="{% url 'core:home' %}"><button class="razer-btn">home</button></a>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

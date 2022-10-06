@@ -1,0 +1,77 @@
+::after, ::before, * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif !important;
+}
+
+
+:root {
+    --black: #000000;
+    --green: #44d62c;
+    --bg-card: #111111;
+    --grey-888: #888888;
+    --grey-9a9: #9a9a9a;
+    --white: #ffffff;
+    --sub-header: #eeeeee;
+    --exclusive: #ff9c07;
+
+}
+
+.navbar {
+    background-color: var(--black);
+}
+
+
+
+.nav-link {
+    color: var(--grey-888);
+}
+
+.nav-link:hover {
+    color: var(--white);
+}
+
+.nav-link:focus {
+    color: var(--white);
+}
+
+.navbar i{
+    color: var(--grey-888);
+    font-size: 20px;
+}
+
+.shopping-cart {
+    position: relative;
+}
+
+#cart-total {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background-color: var(--green);
+    border-radius: 50%;
+    top: -5px;
+    right: -10px;
+    color: var(--black);
+}
+
+
+
+
+
+
+
+@media (max-width: 991.98px) {
+    .collapse {
+        position: relative;
+    }
+    .navbar-brand {
+        position: absolute;
+        top: 5px;
+        right: 50%;
+    }
+}
