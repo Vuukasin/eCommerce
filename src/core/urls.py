@@ -1,6 +1,7 @@
 from django.urls import path
 from .views import (
-    home, add_to_cart, remove_from_cart, decrease_quantity, increase_quantity,
+    home, add_to_cart, remove_from_cart, decrease_quantity, increase_quantity, mice_view, keyboard_view, components_view, laptops_view, audio_view, streaming_view,
+    chairs_view, console_view,
     ItemDetailView, ProductAdded, CartView, CheckoutView, PaymentView, RequestRefundView, OrdersView)
 app_name = 'core'
 
@@ -23,6 +24,18 @@ urlpatterns = [
     path('request-refund/', RequestRefundView.as_view(), name='request-refund'),
 
     path('orders/', OrdersView.as_view(), name='orders'),
+
+
+
+    # Label 
+    path('gaming-mice/', mice_view, name='gaming-mice'),
+    path('gaming-keyboards/', keyboard_view, name='gaming-keyboards'),
+    path('components/', components_view, name='components'),
+    path('gaming-laptops/', laptops_view, name='gaming-laptops'),
+    path('gaming-audio/', audio_view, name='gaming-audio'),
+    path('gaming-chairs/', chairs_view, name='gaming-chairs'),
+    path('streaming/', streaming_view, name='streaming'),
+    path('console-gaming/', console_view, name='console-gaming'),
 
 ]
 

@@ -28,12 +28,6 @@ body {
     --sub-header: #eeeeee;
     --orange: #ff9c07;
 
-    /* NEW */
-    --primary-bg: #222831;
-    --secondary-bg: #393E46
-    --blue-badge: #93DEFF;
-    --orange-badge: #D65A31;
-
 }
 
 
@@ -385,8 +379,13 @@ body {
 
 
 .banner {
-    overflow-x: hidden;
-    object-fit: contain;
+    width: 100%;
+    object-fit: cover;
+}
+
+.banner img {
+    object-fit: cover;
+    width: 100%;
 }
 
 

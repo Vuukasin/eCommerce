@@ -18,7 +18,7 @@
       </button>
       <a class="navbar-brand mt-lg-0" href="{% url 'core:home' %}">
         <img
-          src="{% static 'images/razer-logo.svg' %}"
+          src="{% static 'images/logo.png' %}"
           height="40"
           alt="Razer Logo"
           loading="lazy"
@@ -30,36 +30,29 @@
         <!-- Left links -->
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link" href="#">Laptops</a>
+            <a class="nav-link" href="{% url 'core:gaming-laptops' %}">Laptops</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Components</a>
+            <a class="nav-link" href="{% url 'core:components' %}">Components</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Mice</a>
+            <a class="nav-link" href="{% url 'core:gaming-mice' %}">Mice</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Keyboards</a>
+            <a class="nav-link" href="{% url 'core:gaming-keyboards' %}">Keyboards</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Audio</a>
+            <a class="nav-link" href="{% url 'core:gaming-audio' %}">Audio</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Streaming</a>
+            <a class="nav-link" href="{% url 'core:streaming' %}">Streaming</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Chairs</a>
+            <a class="nav-link" href="{% url 'core:gaming-chairs' %}">Chairs</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Console</a>
+            <a class="nav-link" href="{% url 'core:console-gaming' %}">Console</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Mobile</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Gear</a>
-          </li>
-
 
         </ul>
         <!-- Left links -->

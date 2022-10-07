@@ -1,3 +1,5 @@
+from cProfile import label
+from unicodedata import category
 from urllib.request import OpenerDirector
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -394,4 +396,61 @@ class OrdersView(View):
             return render(self.request, 'orders.html', context)
         except ObjectDoesNotExist:
             pass
-        
+
+
+def mice_view(request):
+    items = Item.objects.filter(category="MICE")
+
+    context = {
+        'items': items
+    }
+    return render(request, 'gaming-mice.html', context)
+
+def keyboard_view(request):
+    items = Item.objects.filter(category="KEYBOARDS")
+    context = {
+        'items': items
+    }
+    return render(request, 'gaming-keyboards.html', context)
+
+def components_view(request):
+    items = Item.objects.filter(category="COMPONENTS")
+    context = {
+        'items': items
+    }
+    return render(request, 'components.html', context)
+
+def laptops_view(request):
+    items = Item.objects.filter(category="LAPTOPS")
+    context = {
+        'items': items
+    }
+    return render(request, 'gaming-laptops.html', context)
+
+def audio_view(request):
+    items = Item.objects.filter(category="AUDIO")
+    context = {
+        'items': items
+    }
+    return render(request, 'gaming-audio.html', context)
+
+def streaming_view(request):
+    items = Item.objects.filter(category="STREAMING")
+    context = {
+        'items': items
+    }
+    return render(request, 'streaming.html', context)
+
+def chairs_view(request):
+    items = Item.objects.filter(category="CHAIRS")
+    context = {
+        'items': items
+    }
+    return render(request, 'gaming-chairs.html', context)
+
+def console_view(request):
+    items = Item.objects.filter(category="CONSOLE")
+    context = {
+        'items': items
+    }
+    return render(request, 'console.html', context)

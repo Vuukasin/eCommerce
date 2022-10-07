@@ -26,8 +26,6 @@ CATEGORY_CHOICES = (
     ('STREAMING', 'Streaming'),
     ('CHAIRS', 'Chairs'),
     ('CONSOLE', 'Console'),
-    ('MOBILE', 'Mobile'),
-    ('GEAR', 'Gear'),
 )
 
 
