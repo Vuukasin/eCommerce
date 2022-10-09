@@ -9,7 +9,7 @@
         <h2>fresh of the line</h2>
         <div class="paragraphs">
             <p>Check out our latest releases to secure the most up-to-date upgrades for your setup</p>
-            <a href="#"><p class="view-all">View All <span class="green">></span></p></a>
+            <a href="{% url 'core:new' %}"><p class="view-all">View All <span class="green">></span></p></a>
         </div>
     </div>
     <div class="grid-container">
@@ -19,7 +19,9 @@
                     <a href="{{ item.get_absolute_url }}">
                         <img class="card-image" src="{{ item.image.url }}" alt="">
                     </a>
+                    {% if item.get_label_display %}
                     <div class="badge {{ item.get_label_display }}-badge">{{ item.get_label_display }}</div>
+                    {% endif %}
                </div>
                 <div class="card-body">
                     <div class="body-copy">
@@ -30,10 +32,10 @@
                         <div class="price">
                             {% if item.discount %}
                                 <p>US${{ item.discount }}</p>
+                                <p class="text-muted mt-1"><strike>US${{ item.price }}</strike></p>
                             {% else %}
                                 <p>US${{ item.price }}</p>
                             {% endif %}
-                            
                         </div>
                         <a href="{{ item.get_absolute_url }}">buy</a>
                     </div>
@@ -50,7 +52,7 @@
         <h2>exclusives</h2>
         <div class="paragraphs">
             <p>Explore unique products only available at our official online store</p>
-            <a href="#"><p class="view-all">View All <span class="green">></span></p></a>
+            <a href="{% url 'core:exclusives' %}"><p class="view-all">View All <span class="green">></span></p></a>
         </div>
     </div>
     <div class="grid-container">
@@ -60,41 +62,9 @@
                     <a href="{{ item.get_absolute_url }}">
                         <img class="card-image" src="{{ item.image.url }}" alt="">
                     </a>
+                    {% if item.get_label_display %}
                     <div class="badge {{ item.get_label_display }}-badge">{{ item.get_label_display }}</div>
-               </div>
-                <div class="card-body">
-                    <div class="body-copy">
-                        <h3>{{ item.title }}</h3>
-                        <p class="summary mb-0">{{ item.summary }}</p>
-                    </div>
-                    <div class="cta-container">
-                        <div class="price">
-                            <p>US${{ item.price }}</p>
-                        </div>
-                        <a href="{{ item.get_absolute_url }}">buy</a>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
-    <div class="banner my-5">
-        <img src="{% static 'images/k-da-battle-kai-sa-league-of-legends-lol-wallpaper-2560x768_69.jpg' %}" alt="">
-    </div>
-    <div class="headers mb-2 mt-5">
-        <h2>last chance</h2>
-        <div class="paragraphs">
-            <p>A curated selection of our classic gear—exclusively priced with full warranty</p>
-            <a href="#"><p class="view-all">View All <span class="green">></span></p></a>
-        </div>
-    </div>
-    <div class="grid-container">
-        {% for item in discounted_items %}
-            <div class="card-item">
-                <div class="card-image-container">
-                    <a href="{{ item.get_absolute_url }}">
-                        <img class="card-image" src="{{ item.image.url }}" alt="">
-                    </a>
-                    <div class="badge {{ item.get_label_display }}-badge">{{ item.discount_percent|floatformat }}% off</div>
+                    {% endif %}
                </div>
                 <div class="card-body">
                     <div class="body-copy">
@@ -109,7 +79,47 @@
                             {% else %}
                                 <p>US${{ item.price }}</p>
                             {% endif %}
-                            
+                        </div>
+                        <a href="{{ item.get_absolute_url }}">buy</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="banner my-5">
+        <img src="{% static 'images/k-da-battle-kai-sa-league-of-legends-lol-wallpaper-2560x768_69.jpg' %}" alt="">
+    </div>
+    <div class="headers mb-2 mt-5">
+        <h2>last chance</h2>
+        <div class="paragraphs">
+            <p>A curated selection of our classic gear-exclusively priced with full warranty</p>
+            <a href="{% url 'core:last-chance' %}"><p class="view-all">View All <span class="green">></span></p></a>
+        </div>
+    </div>
+    <div class="grid-container">
+        {% for item in discounted_items %}
+            <div class="card-item">
+                <div class="card-image-container">
+                    <a href="{{ item.get_absolute_url }}">
+                        <img class="card-image" src="{{ item.image.url }}" alt="">
+                    </a>
+                    {% if item.get_label_display %}
+                    <div class="badge {{ item.get_label_display }}-badge">{{ item.get_label_display }}</div>
+                    {% endif %}
+               </div>
+                <div class="card-body">
+                    <div class="body-copy">
+                        <h3>{{ item.title }}</h3>
+                        <p class="summary mb-0">{{ item.summary }}</p>
+                    </div>
+                    <div class="cta-container">
+                        <div class="price">
+                            {% if item.discount %}
+                                <p>US${{ item.discount }}</p>
+                                <p class="text-muted mt-1"><strike>US${{ item.price }}</strike></p>
+                            {% else %}
+                                <p>US${{ item.price }}</p>
+                            {% endif %}
                         </div>
                         <a href="{{ item.get_absolute_url }}">buy</a>
                     </div>

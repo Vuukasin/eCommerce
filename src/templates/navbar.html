@@ -20,7 +20,7 @@
         <img
           src="{% static 'images/logo.png' %}"
           height="40"
-          alt="Razer Logo"
+          alt="Logo"
           loading="lazy"
         />
       </a>
@@ -57,8 +57,6 @@
         </ul>
         <!-- Left links -->
       </div>
-      <!-- Collapsible wrapper -->
-      <!-- TEST TEST TEST TEST -->
 
 
       <div class="dropdown dropstart">
@@ -70,7 +68,7 @@
             <div class="dropdown-container text-center">
               <div class="dropdown-container-top my-3">
                 <a class="my-1" href="{% url 'core:checkout' %}">
-                  <button class="razer-btn">checkout</button>
+                  <button class="main-btn">checkout</button>
                 </a>
               </div>
               <ul class="text-start">
@@ -89,12 +87,6 @@
                 {% if request.user.is_authenticated %}
                 <li>
                   <a href="{% url 'account_logout' %}">
-                    <img src="{% static 'images/profile.svg' %}" alt="" height="26">
-                    Account
-                  </a>
-                </li>
-                <li>
-                  <a href="">
                     <img src="{% static 'images/logout.svg' %}" alt="" height="26">
                     Logout
                   </a>
@@ -117,27 +109,5 @@
             </div>
           </div>
       </div>
-      
-
-
-      <!-- TEST TEST TEST TEST -->
-      <!-- Right elements -->
-      <!-- {% if request.user.is_authenticated %}
-      <div class="d-flex align-items-center">
-        <a class="text-reset me-3 shopping-cart" href="{% url 'core:cart' %}">
-          <img src="{% static 'images/cart.svg' %}" alt="" height="23">
-          <p id="cart-total" class="mb-0">{{ request.user|cart_item_count }}</p>
-        </a>
-      </div>
-      {% else %}
-      <div class="d-flex align-items-center">
-        <a href="{% url 'account_login' %}">
-          <button class="razer-btn">login</button>
-        </a>
-      </div>
-      {% endif %} -->
-      <!-- Right elements -->
     </div>
-    <!-- Container wrapper -->
   </nav>
-  <!-- Navbar -->

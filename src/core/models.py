@@ -1,7 +1,9 @@
+import os
 import decimal
-from email.policy import default
-from tabnanny import verbose
+from distutils.sysconfig import get_makefile_filename
+import random
 import uuid
+from .utils import unique_slug_generator
 
 
 from django.conf import settings
@@ -13,9 +15,17 @@ from django_countries.fields import CountryField
 
 from .utils import round_decimals_down
 
+def get_filename_ext(filepath):
+    base_name = os.path.basename(filepath)
+    name, ext = os.path.splitext(base_name)
+    return name, ext
 
-def item_directory_path(instance, filename):
-    return "{0}/{1}".format(instance.category, filename)
+
+def upload_image_path(instance, filename):
+    new_filename = random.randint(1,3910209312)
+    name, ext = get_filename_ext(filename)
+    final_filename = '{new_filename}{ext}'.format(new_filename=new_filename, ext=ext)
+    return "products/{0}/{1}".format(new_filename, final_filename)
 
 CATEGORY_CHOICES = (
     ('LAPTOPS', 'Laptops'),
@@ -62,10 +72,10 @@ class Item(models.Model):
     title = models.CharField(max_length=255)
     price = models.DecimalField(decimal_places=2, max_digits=20)
     discount_percent = models.FloatField(default=0 , null=True, blank=True)
-    category = models.CharField(choices=CATEGORY_CHOICES, max_length=10)
+    category = models.CharField(choices=CATEGORY_CHOICES, max_length=10, blank=True)
     label = models.CharField(choices=LABEL_CHOICES, max_length=1, blank=True, null=True)
-    image = models.ImageField(upload_to=item_directory_path, default='thumbnail.png')
-    detail_image = models.ImageField(upload_to=item_directory_path, default='thumbnail.png')
+    image = models.ImageField(upload_to=upload_image_path, default='thumbnail.png')
+    detail_image = models.ImageField(upload_to=upload_image_path, default='thumbnail.png')
     summary = models.CharField(max_length=255, blank=False)
     posted = models.DateTimeField(auto_now_add=True)
     description = models.TextField(max_length=1000, blank=True)
@@ -83,10 +93,9 @@ class Item(models.Model):
         else:
             instance.label = None
 
-    def generate_slug(sender, instance, *args, **kwargs):
+    def item_pre_save_receiver(sender, instance, *args, **kwargs):
         if not instance.slug:
-            to_slugify = instance.title.split('-')
-            instance.slug = slugify(to_slugify[0])
+            instance.slug = unique_slug_generator(instance)
 
 
     def __str__(self):
@@ -113,7 +122,7 @@ class Item(models.Model):
     class Meta:
         ordering = ('-posted',)
 
-pre_save.connect(Item.generate_slug, sender=Item)
+pre_save.connect(Item.item_pre_save_receiver, sender=Item)
 post_save.connect(Item.discount_badge, sender=Item)
 
 class OrderItem(models.Model):

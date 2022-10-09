@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import (
     home, add_to_cart, remove_from_cart, decrease_quantity, increase_quantity, mice_view, keyboard_view, components_view, laptops_view, audio_view, streaming_view,
-    chairs_view, console_view,
+    chairs_view, console_view, new_items_view, last_chance_view, exclusives_view,
     ItemDetailView, ProductAdded, CartView, CheckoutView, PaymentView, RequestRefundView, OrdersView)
 app_name = 'core'
 
@@ -37,6 +37,9 @@ urlpatterns = [
     path('streaming/', streaming_view, name='streaming'),
     path('console-gaming/', console_view, name='console-gaming'),
 
+    path('new/', new_items_view, name='new'),
+    path('last-chance/', last_chance_view, name='last-chance'),
+    path('exclusives/', exclusives_view, name='exclusives'),
 ]
 
 

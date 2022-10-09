@@ -9,6 +9,7 @@ body {
     background-color: var(--black);
 }
 
+
 .main {
     margin-top: 100px;
 }
@@ -145,7 +146,7 @@ body {
 
 
 
-.razer-btn {
+.main-btn {
     cursor: pointer;
     padding-left: 1.75rem;
     padding-right: 1.75rem;
@@ -394,12 +395,35 @@ body {
 
 
 
-.login-container {
+.auth-container {
     width: 400px;
-    background-color: transparent;
-    padding: 20px;
-    border: 1px solid var(--grey-eee);
+    background-color: var(--grey-222);
+    padding: 40px;
+    color: var(--white);
 }
+
+.auth-container .form-group {
+    margin-bottom: 1rem;
+}
+
+.auth-container .login :nth-child(2) label {
+    display: none;
+    outline: none;
+}
+
+.auth-container .login :nth-child(3) label {
+    display: none;
+}
+
+.auth-container button {
+    width: 100%;
+}
+
+.auth-container .signup label {
+    display: none;
+}
+
+
 
 .background-wrapper {
     height: 80vh;
@@ -422,17 +446,24 @@ body {
 .registration-heading {
     color: var(--grey-eee);
     font-size: 22px;
+    
 }
 
-.login-container .form-control {
+.auth-container .form-control {
     background-color: transparent;
     border-radius: 0;
     border: 1px solid var(--grey-eee);
     color: var(--grey-eee);
 }
 
-.login-container .form-control:focus {
+.auth-container .form-control:focus {
     border: 1px solid var(--green);
+}
+
+
+.auth-container .alert {
+    background-color: transparent;
+    border: none;
 }
 
 /* DETAIL VIEW */
@@ -596,7 +627,7 @@ body {
 }
 
 
-.cart-header-right .razer-btn {
+.cart-header-right .main-btn {
     margin-left: 20px;
 }
 
@@ -753,8 +784,14 @@ body {
 
 /* REQUEST REFUND */
 .refund-form {
-    background-color: var(--grey-888);
+    background-color: transparent;
     
+}
+
+.refund-form .form-control {
+    background-color: transparent;
+    border: 1px solid var(--green);
+    color: #555555;
 }
 
 

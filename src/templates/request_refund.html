@@ -8,8 +8,16 @@
         <h3 class="form-header">Request Refund</h3>
         <form method="post" class="refund-form">
             {% csrf_token %}
-            {{ form|crispy }}
-            <button type="submit" class="razer-btn">Submit</button>
+            <div class="form-field mb-3">
+                <input type='text' placeholder='Ref code *' id='ref_code' name='ref_code' class='form-control' required/>
+            </div>
+            <div class="form-field mb-3">
+                <input type='text' placeholder='Message' id='message' name='message' class='form-control' required/>
+            </div>
+            <div class="form-field mb-3">
+                <input type='email' placeholder='Email' id='Email' name='ref_code' class='form-control' required/>
+            </div>
+            <button type="submit" class="main-btn">Submit</button>
         </form>
     </div>
 {% endblock %}

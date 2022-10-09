@@ -1,12 +1,8 @@
-from cProfile import label
-from unicodedata import category
-from urllib.request import OpenerDirector
+from re import L
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
-from django.http.response import HttpResponse, JsonResponse
-from django.urls import is_valid_path
-from requests import request
 
 from .forms import CheckOutForm, RefundForm
 from .models import Item, Order, OrderItem, Address, Payment, Refund
@@ -48,7 +44,8 @@ def home(request):
     return render(request, 'home.html', context)
 
 
-class ProductAdded(DetailView):
+
+class ProductAdded(LoginRequiredMixin, DetailView):
     model = Item
     template_name = 'product_added.html'
     
@@ -61,6 +58,8 @@ class ItemDetailView(DetailView):
     template_name = "product.html"
 
 
+
+@login_required()
 def add_to_cart(request, slug):
     item = get_object_or_404(Item, slug=slug)
     order_item, created = OrderItem.objects.get_or_create(item=item, user=request.user, ordered=False)
@@ -78,7 +77,7 @@ def add_to_cart(request, slug):
         order.items.add(order_item)
     return redirect("core:product-added", slug=slug)
 
-
+@login_required()
 def remove_from_cart(request, slug):
     item = get_object_or_404(Item, slug=slug)
     order_qs = Order.objects.filter(user=request.user, ordered=False)
@@ -94,6 +93,7 @@ def remove_from_cart(request, slug):
         return redirect("core:cart")
     return redirect("core:cart")
 
+@login_required()
 def decrease_quantity(request, slug):
     item = get_object_or_404(Item, slug=slug)
     order_qs = Order.objects.filter(user=request.user, ordered=False)
@@ -112,6 +112,7 @@ def decrease_quantity(request, slug):
     else:
         return redirect('core:cart')
 
+@login_required()
 def increase_quantity(request, slug):
     item = get_object_or_404(Item, slug=slug)
     order_qs = Order.objects.filter(user=request.user, ordered=False)
@@ -137,7 +138,10 @@ class CartView(LoginRequiredMixin, View):
             return render(self.request, 'cart.html')
 
 
-class CheckoutView(View):
+
+
+
+class CheckoutView(LoginRequiredMixin ,View):
     def get(self, *args, **kwargs):
         try:
             form = CheckOutForm()
@@ -283,7 +287,7 @@ class CheckoutView(View):
             return redirect('core:home')
 
 
-class PaymentView(View):
+class PaymentView(LoginRequiredMixin, View):
     def get(self, *args, **kwargs):
         order = Order.objects.get(user=self.request.user, ordered=False)
         context = {
@@ -350,17 +354,38 @@ class PaymentView(View):
 
         except Exception as e:
             messages.error(self.request, "A serious error occured, We have been notifed")
-            return redirect("/")
+            return redirect('core:home')
 
-class RequestRefundView(View):
+class RequestRefundView(LoginRequiredMixin, View):
     def get(self, *args, **kwargs):
         form = RefundForm(self.request.POST)
         context = {
             'form': form
         }
         return render(self.request, "request_refund.html", context)
+    def post(self, *args, **kwargs):
+        form = RefundForm()
+        if form.is_valid():
+            ref_code = form.cleaned_data.get("ref_code")
+            message = form.cleaned_data.get("message")
+            email = form.cleaned_data.get("email")
+            try:
+                order = Order.objects.get(ref_code=ref_code)
+                order.refund_requested = True
+                order.save()
 
+                refund = Refund()
+                refund.order = order
+                refund.reason = message
+                refund.email = email
+                refund.save()
 
+                messages.info(self.request, "Your request was received")
+                return redirect("core:request-refund")
+            except ObjectDoesNotExist:
+                messages.info(self.request, "This order does not exists")
+                return redirect("core:request-refund")
+                
     def post(self, *args, **kwargs):
         form = RefundForm(self.request.POST)
         if form.is_valid():
@@ -385,7 +410,7 @@ class RequestRefundView(View):
                 messages.info(self.request, "This order does not exists")
                 return redirect('core:request-refund')
 
-class OrdersView(View):
+class OrdersView(LoginRequiredMixin, View):
     def get(self, *args, **kwargs):
         try:
             orders = Order.objects.filter(user=self.request.user)
@@ -398,59 +423,82 @@ class OrdersView(View):
             pass
 
 
+
+
 def mice_view(request):
     items = Item.objects.filter(category="MICE")
 
     context = {
         'items': items
     }
-    return render(request, 'gaming-mice.html', context)
+    return render(request, 'products/gaming-mice.html', context)
 
 def keyboard_view(request):
     items = Item.objects.filter(category="KEYBOARDS")
     context = {
         'items': items
     }
-    return render(request, 'gaming-keyboards.html', context)
+    return render(request, 'products/gaming-keyboards.html', context)
 
 def components_view(request):
     items = Item.objects.filter(category="COMPONENTS")
     context = {
         'items': items
     }
-    return render(request, 'components.html', context)
+    return render(request, 'products/components.html', context)
 
 def laptops_view(request):
     items = Item.objects.filter(category="LAPTOPS")
     context = {
         'items': items
     }
-    return render(request, 'gaming-laptops.html', context)
+    return render(request, 'products/gaming-laptops.html', context)
 
 def audio_view(request):
     items = Item.objects.filter(category="AUDIO")
     context = {
         'items': items
     }
-    return render(request, 'gaming-audio.html', context)
+    return render(request, 'products/gaming-audio.html', context)
 
 def streaming_view(request):
     items = Item.objects.filter(category="STREAMING")
     context = {
         'items': items
     }
-    return render(request, 'streaming.html', context)
+    return render(request, 'products/streaming.html', context)
 
 def chairs_view(request):
     items = Item.objects.filter(category="CHAIRS")
     context = {
         'items': items
     }
-    return render(request, 'gaming-chairs.html', context)
+    return render(request, 'products/gaming-chairs.html', context)
 
 def console_view(request):
     items = Item.objects.filter(category="CONSOLE")
     context = {
         'items': items
     }
-    return render(request, 'console.html', context)
+    return render(request, 'products/console.html', context)
+
+def new_items_view(request):
+    items = Item.objects.filter(label="N")
+    context = {
+        'items': items
+    }
+    return render(request, 'products/new-items.html', context)
+
+def last_chance_view(request):
+    items = Item.objects.filter(label='D')
+    context = {
+        'items': items
+    }
+    return render(request, 'products/last-chance.html', context)
+
+def exclusives_view(request):
+    items = Item.objects.filter(label="E")
+    context = {
+        'items': items
+    }
+    return render(request, 'products/exclusives.html', context)

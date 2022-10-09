@@ -152,6 +152,11 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+ACCOUNT_EMAIL_VERIFICATION = "none"
+LOGOUT_REDIRECT_URL = 'account_login'
+
 SITE_ID = 1
 LOGIN_REDIRECT_URL = '/'
 
@@ -163,3 +168,6 @@ STRIPE_PUBLISHABLE_KEY = 'pk_test_51Lm5hSAf1QNOQU7dmK4u6ditwxnMqpzTqdG9VavR0r7R1
 STRIPE_SECRET_KEY = 'sk_test_51Lm5hSAf1QNOQU7dlRtOYdUdQbkSSKpVT0aOSzUjReU2zMj9oYbkWHpCu2qGuKOiWQStsLTARHedcM2ocssDr47200nBTlwRk9'
 
 SITE_URL = 'http://localhost:8000'
+
+
+ACCOUNT_LOGOUT_ON_GET = True
