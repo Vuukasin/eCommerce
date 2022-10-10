@@ -39,3 +39,5 @@ Use .\venv\Scripts\activate if on windows
 ```bash
   code .
 ```
+
+<img src="home_screenshot.png">
