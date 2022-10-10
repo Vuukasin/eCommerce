@@ -41,5 +41,7 @@ Use .\venv\Scripts\activate if on windows
 ```
 
 ## Demo (screenshots)
-
+Home page
 <img src="home_screenshot.png">
+Checkout page
+<img src"checkout_screenshot.png">
