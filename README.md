@@ -40,4 +40,6 @@ Use .\venv\Scripts\activate if on windows
   code .
 ```
 
+## Demo (screenshots)
+
 <img src="home_screenshot.png">
